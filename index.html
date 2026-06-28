@@ -181,18 +181,19 @@ tbody tr.row-done:hover td{background:#e8faf0}
 tbody tr.row-error td{background:#fff5f5}
 
 td{
-  padding:5px 3px;border-bottom:1px solid #edf1f7;
+  padding:5px 2px;border-bottom:1px solid #edf1f7;
   vertical-align:middle;
 }
 td:first-child{text-align:center;font-size:11px;color:#94a3b8;font-weight:600;font-family:'JetBrains Mono',monospace;width:24px}
+td.td-d{padding-left:1px;padding-right:1px}
 
 /* Cell inputs */
 .cell-inp{
   width:100%;background:transparent;border:1px solid transparent;
-  border-radius:5px;padding:6px 4px;
-  font-size:12px;font-family:'JetBrains Mono',monospace;
+  border-radius:5px;padding:6px 3px;
+  font-size:14px;font-family:'JetBrains Mono',monospace;
   color:#0f172a;outline:none;transition:all 0.15s;
-  -moz-appearance:textfield;min-width:0;width:72px;
+  -moz-appearance:textfield;min-width:0;width:76px;
 }
 .cell-inp::-webkit-inner-spin-button{-webkit-appearance:none}
 .cell-inp:hover{border-color:#d0dcea;background:#fff}
@@ -202,15 +203,15 @@ td:first-child{text-align:center;font-size:11px;color:#94a3b8;font-weight:600;fo
 .cell-inp.d3:focus{border-color:#2563eb;background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
 
 /* Result cells */
-.td-result{width:56px;text-align:right;white-space:nowrap;padding:5px 3px}
-.cell-empty{font-size:12px;color:#cbd5e1;font-family:'JetBrains Mono',monospace}
+.td-result{width:62px;text-align:right;white-space:nowrap;padding:5px 6px}
+.cell-empty{font-size:13px;color:#cbd5e1;font-family:'JetBrains Mono',monospace}
 .cell-pending{
   font-size:9px;font-weight:700;color:#d97706;
   background:#fef3c7;border:1px solid #fde68a;
   border-radius:20px;padding:2px 5px;letter-spacing:0;
 }
-.cell-ts{font-size:13px;font-weight:700;color:#2563eb;font-family:'JetBrains Mono',monospace}
-.cell-ms{font-size:13px;font-weight:700;color:#059669;font-family:'JetBrains Mono',monospace}
+.cell-ts{font-size:15px;font-weight:700;color:#2563eb;font-family:'JetBrains Mono',monospace}
+.cell-ms{font-size:15px;font-weight:700;color:#059669;font-family:'JetBrains Mono',monospace}
 .cell-error{font-size:10px;color:#dc2626;font-weight:600}
 
 /* Delete btn */
@@ -450,9 +451,9 @@ function rowHTML(row, i) {
 
   return `<tr class="${rowClass}" data-id="${row.id}">
     <td>${i + 1}</td>
-    <td><input class="cell-inp" type="number" data-id="${row.id}" data-field="d1" value="${row.d1}" placeholder="0.0000" step="any"></td>
-    <td><input class="cell-inp" type="number" data-id="${row.id}" data-field="d2" value="${row.d2}" placeholder="0.0000" step="any"></td>
-    <td><input class="cell-inp d3" type="number" data-id="${row.id}" data-field="d3" value="${row.d3}" placeholder="—" step="any"></td>
+    <td class="td-d"><input class="cell-inp" type="number" data-id="${row.id}" data-field="d1" value="${row.d1}" placeholder="0.0000" step="any"></td>
+    <td class="td-d"><input class="cell-inp" type="number" data-id="${row.id}" data-field="d2" value="${row.d2}" placeholder="0.0000" step="any"></td>
+    <td class="td-d"><input class="cell-inp d3" type="number" data-id="${row.id}" data-field="d3" value="${row.d3}" placeholder="—" step="any"></td>
     <td class="td-result">${tsCell}</td>
     <td class="td-result">${msCell}</td>
     <td><button class="btn-del" data-id="${row.id}" title="ลบแถว">×</button></td>
