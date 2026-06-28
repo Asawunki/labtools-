@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%232563eb'/%3E%3Crect x='8' y='5' width='16' height='22' rx='2.5' fill='white' opacity='0.92'/%3E%3Crect x='10' y='7' width='12' height='6' rx='1.5' fill='%232563eb' opacity='0.25'/%3E%3Ctext x='17.5' y='14' font-size='5' fill='%232563eb' text-anchor='middle' font-weight='bold' opacity='0.7'%3E8.8%3C/text%3E%3Crect x='10' y='16' width='3.5' height='2.5' rx='0.8' fill='%232563eb' opacity='0.25'/%3E%3Crect x='14.2' y='16' width='3.5' height='2.5' rx='0.8' fill='%232563eb' opacity='0.25'/%3E%3Crect x='18.5' y='16' width='3.5' height='2.5' rx='0.8' fill='%232563eb' opacity='0.35'/%3E%3Crect x='10' y='20' width='3.5' height='2.5' rx='0.8' fill='%232563eb' opacity='0.25'/%3E%3Crect x='14.2' y='20' width='3.5' height='2.5' rx='0.8' fill='%232563eb' opacity='0.25'/%3E%3Crect x='18.5' y='20' width='3.5' height='5' rx='0.8' fill='%232563eb' opacity='0.35'/%3E%3Crect x='10' y='24' width='3.5' height='1.5' rx='0.8' fill='%232563eb' opacity='0.25'/%3E%3Crect x='14.2' y='24' width='3.5' height='1.5' rx='0.8' fill='%232563eb' opacity='0.25'/%3E%3C/svg%3E">
+<title>TS & MS Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Prompt',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background-color:#d6e8fb;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cg fill='none' stroke='%232563eb' stroke-width='1.3' opacity='0.13'%3E%3Cline x1='40' y1='10' x2='66' y2='25'/%3E%3Cline x1='66' y1='25' x2='66' y2='55'/%3E%3Cline x1='66' y1='55' x2='40' y2='70'/%3E%3Cline x1='40' y1='70' x2='14' y2='55'/%3E%3Cline x1='14' y1='55' x2='14' y2='25'/%3E%3Cline x1='14' y1='25' x2='40' y2='10'/%3E%3C/g%3E%3Cg fill='%232563eb' opacity='0.22'%3E%3Ccircle cx='40' cy='10' r='3'/%3E%3Ccircle cx='66' cy='25' r='3'/%3E%3Ccircle cx='66' cy='55' r='3'/%3E%3Ccircle cx='40' cy='70' r='3'/%3E%3Ccircle cx='14' cy='55' r='3'/%3E%3Ccircle cx='14' cy='25' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:80px 80px;
+  color:#1e2b3c;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+.wrap{max-width:860px;margin:0 auto;padding:2rem 1rem 2rem;position:relative}
+
+/* Back btn */
+.back-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#fff;border:1px solid #c8d9ed;border-radius:20px;
+  padding:6px 14px 6px 10px;margin-bottom:1.2rem;
+  font-size:12px;font-weight:600;color:#2563eb;
+  text-decoration:none;cursor:pointer;
+  box-shadow:0 1px 4px rgba(30,80,160,0.07);
+  transition:all 0.2s;
+}
+.back-btn:hover{background:#eff6ff;border-color:#93c5fd}
+.back-btn svg{width:14px;height:14px;fill:none;stroke:#2563eb;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Header */
+.header{text-align:center;margin-bottom:1.5rem}
+.lab-bar{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid #c8d9ed;border-radius:24px;
+  padding:5px 14px 5px 10px;margin-bottom:.9rem;
+  box-shadow:0 1px 4px rgba(30,80,160,0.07);
+}
+.lab-icon{
+  width:22px;height:22px;flex-shrink:0;
+  background:linear-gradient(135deg,#2563eb,#0ea5e9);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+.lab-icon svg{width:12px;height:12px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lab-tag{font-size:10px;font-weight:700;color:#2563eb;letter-spacing:1.2px;text-transform:uppercase}
+.title{font-size:26px;font-weight:700;color:#0f172a;margin-bottom:.3rem;letter-spacing:-0.5px}
+.title span{color:#2563eb}
+.subtitle{font-size:12px;color:#7a90aa;letter-spacing:0.4px}
+
+/* Section card */
+.section{
+  background:#fff;border:1px solid #d0dcea;
+  border-top:3px solid #2563eb;border-radius:10px;
+  padding:1.25rem;margin-bottom:1rem;
+  box-shadow:0 2px 8px rgba(30,80,160,0.06);
+}
+.sec-label{
+  font-size:15px;color:#0f172a;letter-spacing:0.5px;font-weight:900;
+  display:flex;align-items:center;gap:6px;
+}
+
+/* Settings row */
+.settings-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.settings-label{font-size:13px;color:#4a6080;font-weight:600;white-space:nowrap}
+.pills{display:flex;gap:6px}
+.pill{
+  padding:6px 14px;border-radius:7px;
+  font-size:13px;font-weight:600;cursor:pointer;
+  border:1px solid #d0dcea;background:#f4f7fb;color:#7a90aa;
+  transition:all 0.2s;
+}
+.pill:hover{border-color:#93c5fd;color:#2563eb;background:#eff6ff}
+.pill.active{
+  background:linear-gradient(135deg,#2563eb,#0ea5e9);
+  border-color:transparent;color:#fff;
+  box-shadow:0 2px 8px rgba(37,99,235,0.22);
+}
+
+/* Blank toggle */
+.blank-row{
+  display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;padding-top:1rem;margin-top:1rem;
+  border-top:1px solid #e8eef5;
+}
+.blank-row-left .toggle-text{font-size:14px;color:#1e2b3c;font-weight:600}
+.blank-row-left .toggle-sub{font-size:11px;color:#7a90aa;margin-top:2px}
+.toggle-sw{
+  width:40px;height:24px;background:#d0dcea;border-radius:12px;
+  position:relative;transition:background 0.25s;flex-shrink:0;border:1px solid #c0cfe0;
+}
+.toggle-sw.on{background:#2563eb;border-color:#2563eb}
+.toggle-sw::after{
+  content:'';width:18px;height:18px;background:#fff;border-radius:50%;
+  position:absolute;top:2px;left:2px;transition:left 0.25s;
+  box-shadow:0 1px 3px rgba(0,0,0,0.15);
+}
+.toggle-sw.on::after{left:18px}
+
+.blank-detail{margin-top:1rem;padding-top:1rem;border-top:1px solid #e8eef5}
+.mode-pills{display:flex;gap:6px;margin-bottom:1rem}
+.mode-pill{
+  flex:1;text-align:center;padding:7px 0;border-radius:7px;
+  font-size:12px;cursor:pointer;border:1px solid #d0dcea;
+  background:#f4f7fb;color:#7a90aa;transition:all 0.2s;font-weight:600;
+}
+.mode-pill:hover{border-color:#93c5fd;color:#2563eb}
+.mode-pill.active{background:#eff6ff;border-color:#2563eb;color:#2563eb}
+
+.inp-row{display:flex;align-items:center;gap:10px;margin-bottom:.75rem}
+.inp-lbl{font-size:12px;color:#4a6080;width:64px;flex-shrink:0;font-family:'JetBrains Mono',monospace;font-weight:600}
+.inp-row input[type=number]{
+  flex:1;background:#f8fafc;border:1px solid #d0dcea;border-radius:7px;
+  padding:8px 12px;color:#0f172a;font-size:13px;outline:none;
+  font-family:'JetBrains Mono',monospace;-moz-appearance:textfield;
+  transition:border-color 0.2s,box-shadow 0.2s;
+}
+.inp-row input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
+.inp-row input[type=number]:focus{border-color:#2563eb;background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,0.12)}
+
+.opt-row{
+  display:flex;align-items:center;justify-content:space-between;
+  background:#f4f7fb;border:1px solid #d0dcea;border-radius:7px;
+  padding:10px 14px;margin-top:.75rem;
+}
+.opt-label{font-size:12px;color:#4a6080;line-height:1.5}
+.checkbox{width:16px;height:16px;accent-color:#2563eb;cursor:pointer;flex-shrink:0}
+
+/* Table section */
+.table-toolbar{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1rem;flex-wrap:wrap;gap:8px;
+}
+.status-summary{
+  font-size:12px;color:#7a90aa;
+  background:#f4f7fb;border:1px solid #e0e8f0;
+  border-radius:20px;padding:4px 12px;
+}
+.toolbar-btns{display:flex;gap:8px}
+.btn-sm{
+  padding:6px 14px;border-radius:7px;font-size:12px;font-weight:600;
+  cursor:pointer;border:1px solid #d0dcea;background:#fff;color:#4a6080;
+  transition:all 0.2s;
+}
+.btn-sm:hover{background:#f4f7fb;border-color:#2563eb;color:#2563eb}
+.btn-sm.export{border-color:#059669;color:#059669}
+.btn-sm.export:hover{background:#f0fdf4;border-color:#059669}
+.btn-sm.danger:hover{background:#fff5f5;border-color:#dc2626;color:#dc2626}
+
+/* Table */
+.table-wrap{overflow-x:auto;margin:-4px -4px 0;padding:4px 4px 0}
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:560px}
+thead th{
+  padding:9px 10px;font-size:11px;font-weight:700;color:#7a90aa;
+  text-transform:uppercase;letter-spacing:0.8px;
+  background:#f8fafc;border-bottom:2px solid #e0e8f0;
+  text-align:left;white-space:nowrap;
+}
+thead th:first-child{border-radius:6px 0 0 0;width:36px;text-align:center}
+thead th:last-child{border-radius:0 6px 0 0;width:36px}
+thead th.th-d3{
+  color:#2563eb;
+  position:relative;
+}
+thead th.th-d3::after{
+  content:'← กรอกทีหลัง';
+  font-size:9px;font-weight:500;color:#94a3b8;
+  display:block;letter-spacing:0;text-transform:none;margin-top:1px;
+}
+
+tbody tr{transition:background 0.15s}
+tbody tr:hover{background:#f8fafc}
+tbody tr.row-pending td{background:#fffbeb}
+tbody tr.row-pending:hover td{background:#fef9e7}
+tbody tr.row-done td{background:#f0fdf4}
+tbody tr.row-done:hover td{background:#e8faf0}
+tbody tr.row-error td{background:#fff5f5}
+
+td{
+  padding:6px 8px;border-bottom:1px solid #edf1f7;
+  vertical-align:middle;
+}
+td:first-child{text-align:center;font-size:12px;color:#94a3b8;font-weight:600;font-family:'JetBrains Mono',monospace;width:36px}
+
+/* Cell inputs */
+.cell-inp{
+  width:100%;background:transparent;border:1px solid transparent;
+  border-radius:5px;padding:6px 8px;
+  font-size:13px;font-family:'JetBrains Mono',monospace;
+  color:#0f172a;outline:none;transition:all 0.15s;
+  -moz-appearance:textfield;min-width:90px;
+}
+.cell-inp::-webkit-inner-spin-button{-webkit-appearance:none}
+.cell-inp:hover{border-color:#d0dcea;background:#fff}
+.cell-inp:focus{border-color:#2563eb;background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
+.cell-inp.d3{border-color:#dbeafe;background:#eff6ff}
+.cell-inp.d3:hover{border-color:#93c5fd;background:#fff}
+.cell-inp.d3:focus{border-color:#2563eb;background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
+
+/* Result cells */
+.td-result{width:90px;text-align:right;white-space:nowrap}
+.cell-empty{font-size:13px;color:#cbd5e1;font-family:'JetBrains Mono',monospace}
+.cell-pending{
+  font-size:10px;font-weight:700;color:#d97706;
+  background:#fef3c7;border:1px solid #fde68a;
+  border-radius:20px;padding:2px 8px;letter-spacing:0.3px;
+}
+.cell-ts{font-size:14px;font-weight:700;color:#2563eb;font-family:'JetBrains Mono',monospace}
+.cell-ms{font-size:14px;font-weight:700;color:#059669;font-family:'JetBrains Mono',monospace}
+.cell-error{font-size:11px;color:#dc2626;font-weight:600}
+
+/* Delete btn */
+.btn-del{
+  width:26px;height:26px;border-radius:50%;border:1px solid #e0e8f0;
+  background:transparent;color:#cbd5e1;font-size:15px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.15s;line-height:1;
+}
+.btn-del:hover{background:#fee2e2;border-color:#fca5a5;color:#dc2626}
+
+/* Add row button */
+.btn-add{
+  width:100%;margin-top:10px;padding:10px;
+  border:2px dashed #c8d9ed;border-radius:8px;
+  background:transparent;color:#7a90aa;font-size:13px;font-weight:600;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-add:hover{border-color:#2563eb;color:#2563eb;background:#eff6ff}
+
+/* Saved badge */
+.saved-badge{
+  font-size:11px;color:#059669;
+  display:none;align-items:center;gap:4px;
+}
+.saved-badge.show{display:inline-flex}
+
+/* Footer */
+.footer{text-align:center;margin-top:1.5rem;padding-bottom:1rem}
+.footer-text{font-size:10px;color:#b0bfcc;letter-spacing:0.5px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <a class="back-btn" href="../index.html">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    Lab Hub
+  </a>
+
+  <div class="header">
+    <div class="lab-bar">
+      <div class="lab-icon">
+        <svg viewBox="0 0 24 24"><rect x='3' y='2' width='18' height='20' rx='2' fill='none' stroke='white' stroke-width='1.5'/><rect x='5' y='4' width='14' height='5' rx='1' fill='white' opacity='0.3'/><rect x='5' y='11' width='4' height='3' rx='0.8' fill='white' opacity='0.5'/><rect x='10' y='11' width='4' height='3' rx='0.8' fill='white' opacity='0.5'/><rect x='15' y='11' width='4' height='3' rx='0.8' fill='white' opacity='0.7'/><rect x='5' y='16' width='4' height='3' rx='0.8' fill='white' opacity='0.5'/><rect x='10' y='16' width='4' height='3' rx='0.8' fill='white' opacity='0.5'/><rect x='15' y='16' width='4' height='6.5' rx='0.8' fill='white' opacity='0.7'/></svg>
+      </div>
+      <span class="lab-tag">Laboratory</span>
+    </div>
+    <div class="title">TS &amp; <span>MS</span> Calculator</div>
+    <div class="subtitle">Total Solid · Moisture Content</div>
+  </div>
+
+  <!-- Settings -->
+  <div class="section">
+    <div class="settings-row">
+      <span class="settings-label">ทศนิยม</span>
+      <div class="pills" id="dp-pills">
+        <div class="pill" data-dp="2">2</div>
+        <div class="pill" data-dp="3">3</div>
+        <div class="pill" data-dp="4">4</div>
+        <div class="pill" data-dp="5">5</div>
+      </div>
+      <span class="saved-badge" id="saved-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        บันทึกแล้ว
+      </span>
+    </div>
+
+    <!-- Blank toggle -->
+    <div class="blank-row" id="blank-row">
+      <div class="blank-row-left">
+        <div class="toggle-text">Blank Correction</div>
+        <div class="toggle-sub">B_diff · B_start · B_end</div>
+      </div>
+      <div class="toggle-sw" id="blank-sw"></div>
+    </div>
+    <div class="blank-detail" id="blank-detail" style="display:none">
+      <div class="mode-pills">
+        <div class="mode-pill active" data-mode="direct">กรอก B_diff</div>
+        <div class="mode-pill" data-mode="calc">คำนวณจาก B_start/B_end</div>
+      </div>
+      <div id="blank-direct">
+        <div class="inp-row">
+          <div class="inp-lbl">B_diff</div>
+          <input type="number" id="bdiff" placeholder="0" step="any">
+        </div>
+      </div>
+      <div id="blank-calc-inputs" style="display:none">
+        <div class="inp-row">
+          <div class="inp-lbl">B_start</div>
+          <input type="number" id="bstart" placeholder="0" step="any">
+        </div>
+        <div class="inp-row">
+          <div class="inp-lbl">B_end</div>
+          <input type="number" id="bend" placeholder="0" step="any">
+        </div>
+      </div>
+      <div class="opt-row">
+        <div class="opt-label">นำ B_diff ที่ติดลบมาคิดด้วย<br><span style="font-size:11px;color:#94a3b8">ถ้าไม่เลือก: B_diff &lt; 0 จะถือว่า 0</span></div>
+        <input type="checkbox" class="checkbox" id="neg-opt">
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="section">
+    <div class="table-toolbar">
+      <span class="status-summary" id="status-summary">—</span>
+      <div class="toolbar-btns">
+        <button class="btn-sm export" id="btn-export">↓ Export CSV</button>
+        <button class="btn-sm danger" id="btn-clear-all">ล้างทั้งหมด</button>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>D₁ (ภาชนะ)</th>
+            <th>D₂ (ก่อนอบ)</th>
+            <th class="th-d3">D₃ (หลังอบ)</th>
+            <th style="text-align:right">TS%</th>
+            <th style="text-align:right">MS%</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+    <button class="btn-add" id="btn-add">+ เพิ่มตัวอย่าง</button>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">Bankers Rounding · บันทึกอัตโนมัติในเบราว์เซอร์นี้</div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'msts_v2';
+let saveTimer = null;
+
+let state = {
+  dp: 2,
+  rows: [],
+  blank: { on: false, mode: 'direct', bdiff: '', bstart: '', bend: '', negOpt: false }
+};
+
+/* ── Persistence ── */
+function loadState() {
+  try {
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) state = Object.assign(state, JSON.parse(s));
+  } catch(e) {}
+  if (!state.rows.length) state.rows = [newRow(), newRow(), newRow()];
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+  showSaved();
+}
+
+function saveDebounced() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveState, 400);
+}
+
+function showSaved() {
+  const el = document.getElementById('saved-badge');
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 1800);
+}
+
+/* ── Core ── */
+function newRow() {
+  return { id: Date.now() + '_' + Math.random().toString(36).slice(2), d1:'', d2:'', d3:'' };
+}
+
+function bankersRound(num, dec) {
+  const f = Math.pow(10, dec);
+  const s = num * f, fl = Math.floor(s), diff = s - fl;
+  if (Math.abs(diff - 0.5) < 1e-10) return (fl % 2 === 0 ? fl : fl + 1) / f;
+  return Math.round(s) / f;
+}
+function fmt(n) { return bankersRound(n, state.dp).toFixed(state.dp); }
+
+function getBlankDiff() {
+  if (!state.blank.on) return 0;
+  let b = 0;
+  if (state.blank.mode === 'direct') {
+    b = state.blank.bdiff !== '' ? parseFloat(state.blank.bdiff) || 0 : 0;
+  } else {
+    const bs = parseFloat(state.blank.bstart), be = parseFloat(state.blank.bend);
+    b = (!isNaN(bs) && !isNaN(be)) ? be - bs : 0;
+  }
+  if (!state.blank.negOpt && b < 0) b = 0;
+  return b;
+}
+
+function calcRow(row) {
+  const d1 = parseFloat(row.d1), d2 = parseFloat(row.d2), d3 = parseFloat(row.d3);
+  if (isNaN(d1) || isNaN(d2) || row.d1 === '' || row.d2 === '') return { status: 'empty' };
+  if (isNaN(d3) || row.d3 === '') return { status: 'pending' };
+  const fresh = d2 - d1, dry = d3 - d1;
+  if (fresh <= 0) return { status: 'error', msg: 'D₂ ≤ D₁' };
+  if (dry < 0)   return { status: 'error', msg: 'D₃ < D₁' };
+  const ts = ((dry - getBlankDiff()) / fresh) * 100;
+  return { status: 'ok', ts, ms: 100 - ts };
+}
+
+/* ── Render ── */
+function renderTable() {
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = state.rows.map((row, i) => rowHTML(row, i)).join('');
+  updateSummary();
+}
+
+function rowHTML(row, i) {
+  const r = calcRow(row);
+  let tsCell = '', msCell = '', rowClass = '';
+
+  if (r.status === 'empty') {
+    tsCell = '<span class="cell-empty">—</span>';
+    msCell = '<span class="cell-empty">—</span>';
+  } else if (r.status === 'pending') {
+    tsCell = '<span class="cell-pending">รอ D₃</span>';
+    msCell = '<span class="cell-pending">รอ D₃</span>';
+    rowClass = 'row-pending';
+  } else if (r.status === 'error') {
+    tsCell = `<span class="cell-error">${r.msg}</span>`;
+    msCell = '<span class="cell-error">—</span>';
+    rowClass = 'row-error';
+  } else {
+    tsCell = `<span class="cell-ts">${fmt(r.ts)}</span>`;
+    msCell = `<span class="cell-ms">${fmt(r.ms)}</span>`;
+    rowClass = 'row-done';
+  }
+
+  return `<tr class="${rowClass}" data-id="${row.id}">
+    <td>${i + 1}</td>
+    <td><input class="cell-inp" type="number" data-id="${row.id}" data-field="d1" value="${row.d1}" placeholder="0.0000" step="any"></td>
+    <td><input class="cell-inp" type="number" data-id="${row.id}" data-field="d2" value="${row.d2}" placeholder="0.0000" step="any"></td>
+    <td><input class="cell-inp d3" type="number" data-id="${row.id}" data-field="d3" value="${row.d3}" placeholder="—" step="any"></td>
+    <td class="td-result">${tsCell}</td>
+    <td class="td-result">${msCell}</td>
+    <td><button class="btn-del" data-id="${row.id}" title="ลบแถว">×</button></td>
+  </tr>`;
+}
+
+function updateRowResult(id) {
+  const row = state.rows.find(r => r.id === id);
+  const tr  = document.querySelector(`tr[data-id="${id}"]`);
+  if (!row || !tr) return;
+
+  const r = calcRow(row);
+  const tds = tr.querySelectorAll('.td-result');
+  tr.className = tr.className.replace(/row-\w+/g, '').trim();
+
+  let tsCell = '', msCell = '';
+  if (r.status === 'empty') {
+    tsCell = '<span class="cell-empty">—</span>';
+    msCell = '<span class="cell-empty">—</span>';
+  } else if (r.status === 'pending') {
+    tsCell = '<span class="cell-pending">รอ D₃</span>';
+    msCell = '<span class="cell-pending">รอ D₃</span>';
+    tr.classList.add('row-pending');
+  } else if (r.status === 'error') {
+    tsCell = `<span class="cell-error">${r.msg}</span>`;
+    msCell = '<span class="cell-error">—</span>';
+    tr.classList.add('row-error');
+  } else {
+    tsCell = `<span class="cell-ts">${fmt(r.ts)}</span>`;
+    msCell = `<span class="cell-ms">${fmt(r.ms)}</span>`;
+    tr.classList.add('row-done');
+  }
+  tds[0].innerHTML = tsCell;
+  tds[1].innerHTML = msCell;
+  updateSummary();
+}
+
+function updateSummary() {
+  const results = state.rows.map(r => calcRow(r).status);
+  const total   = state.rows.length;
+  const done    = results.filter(s => s === 'ok').length;
+  const pending = results.filter(s => s === 'pending').length;
+  document.getElementById('status-summary').textContent =
+    `ทั้งหมด ${total} | เสร็จ ${done} | รอ D₃ ${pending}`;
+}
+
+/* ── Events: table ── */
+document.getElementById('table-body').addEventListener('input', e => {
+  const inp = e.target;
+  if (!inp.classList.contains('cell-inp')) return;
+  const row = state.rows.find(r => r.id === inp.dataset.id);
+  if (!row) return;
+  row[inp.dataset.field] = inp.value;
+  updateRowResult(inp.dataset.id);
+  saveDebounced();
+});
+
+document.getElementById('table-body').addEventListener('keydown', e => {
+  if (e.key !== 'Enter' && e.key !== 'Tab') return;
+  if (e.key === 'Tab') return; // let browser handle natural tab
+  e.preventDefault();
+  const inputs = [...document.querySelectorAll('#table-body .cell-inp')];
+  const idx = inputs.indexOf(e.target);
+  if (idx !== -1 && idx < inputs.length - 1) inputs[idx + 1].focus();
+  else if (idx === inputs.length - 1) {
+    // Enter on last cell → add row and focus its D1
+    addRow();
+  }
+});
+
+document.getElementById('table-body').addEventListener('click', e => {
+  if (!e.target.classList.contains('btn-del')) return;
+  if (state.rows.length <= 1) return;
+  state.rows = state.rows.filter(r => r.id !== e.target.dataset.id);
+  saveState();
+  renderTable();
+});
+
+function addRow() {
+  state.rows.push(newRow());
+  saveState();
+  renderTable();
+  const inputs = document.querySelectorAll('#table-body .cell-inp[data-field="d1"]');
+  if (inputs.length) inputs[inputs.length - 1].focus();
+}
+
+document.getElementById('btn-add').addEventListener('click', addRow);
+
+/* ── Events: toolbar ── */
+document.getElementById('btn-export').addEventListener('click', () => {
+  let csv = '#,D1,D2,D3,TS%,MS%\n';
+  state.rows.forEach((row, i) => {
+    const r = calcRow(row);
+    const ts = r.status === 'ok' ? fmt(r.ts) : '';
+    const ms = r.status === 'ok' ? fmt(r.ms) : '';
+    csv += `${i+1},${row.d1},${row.d2},${row.d3},${ts},${ms}\n`;
+  });
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `TS_MS_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('btn-clear-all').addEventListener('click', () => {
+  if (!confirm('ล้างข้อมูลทั้งหมดและเริ่มใหม่?')) return;
+  state.rows = [newRow(), newRow(), newRow()];
+  saveState();
+  renderTable();
+});
+
+/* ── Events: settings ── */
+document.querySelectorAll('#dp-pills .pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('#dp-pills .pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+    state.dp = parseInt(p.dataset.dp);
+    saveState();
+    state.rows.forEach(r => updateRowResult(r.id));
+  });
+});
+
+document.getElementById('blank-row').addEventListener('click', () => {
+  state.blank.on = !state.blank.on;
+  document.getElementById('blank-sw').classList.toggle('on', state.blank.on);
+  document.getElementById('blank-detail').style.display = state.blank.on ? 'block' : 'none';
+  saveState();
+  state.rows.forEach(r => updateRowResult(r.id));
+});
+
+document.querySelectorAll('.mode-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.mode-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+    state.blank.mode = p.dataset.mode;
+    document.getElementById('blank-direct').style.display         = state.blank.mode === 'direct' ? '' : 'none';
+    document.getElementById('blank-calc-inputs').style.display    = state.blank.mode === 'calc'   ? '' : 'none';
+    saveState();
+    state.rows.forEach(r => updateRowResult(r.id));
+  });
+});
+
+['bdiff','bstart','bend'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', () => {
+    state.blank[id] = el.value;
+    saveDebounced();
+    state.rows.forEach(r => updateRowResult(r.id));
+  });
+});
+
+document.getElementById('neg-opt').addEventListener('change', e => {
+  state.blank.negOpt = e.target.checked;
+  saveState();
+  state.rows.forEach(r => updateRowResult(r.id));
+});
+
+/* ── Init ── */
+loadState();
+
+// Apply saved dp
+document.querySelectorAll('#dp-pills .pill').forEach(p =>
+  p.classList.toggle('active', parseInt(p.dataset.dp) === state.dp)
+);
+
+// Apply saved blank
+if (state.blank.on) {
+  document.getElementById('blank-sw').classList.add('on');
+  document.getElementById('blank-detail').style.display = 'block';
+}
+document.querySelectorAll('.mode-pill').forEach(p =>
+  p.classList.toggle('active', p.dataset.mode === state.blank.mode)
+);
+document.getElementById('blank-direct').style.display      = state.blank.mode === 'direct' ? '' : 'none';
+document.getElementById('blank-calc-inputs').style.display = state.blank.mode === 'calc'   ? '' : 'none';
+if (state.blank.bdiff)  document.getElementById('bdiff').value  = state.blank.bdiff;
+if (state.blank.bstart) document.getElementById('bstart').value = state.blank.bstart;
+if (state.blank.bend)   document.getElementById('bend').value   = state.blank.bend;
+document.getElementById('neg-opt').checked = state.blank.negOpt;
+
+renderTable();
+</script>
+</body>
+</html>
